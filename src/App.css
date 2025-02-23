@@ -1,38 +1,39 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.dashboard-container {
+  background-color: #f8f9fa;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 20px;
+}
+
+.sidebar {
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
+  min-height: 100vh;
+  border-radius: 20px;
+  padding: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.sidebar .nav-item {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sidebar .nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.soft-card {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  border: none;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 15px rgba(255, 255, 255, 0.7);
+  transition: 0.3s;
+}
+
+.soft-card:hover {
+  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.15), -8px -8px 20px rgba(255, 255, 255, 0.8);
+  transform: scale(1.02);
 }
