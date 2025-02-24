@@ -6,7 +6,7 @@ const Portfolio = () => {
   const [error, setError] = useState(null);
   const refreshInterval = 5000;
 
-  const backendUrl = "https://your-backend-name.onrender.com/api/exchange-rates";
+  const backendUrl = "https://bitcoin-backend-pps2.onrender.com/api/exchange-rates";
 
   const fetchExchangeRates = async () => {
     setError(null);
