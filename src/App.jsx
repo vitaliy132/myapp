@@ -13,7 +13,7 @@ import { Container, Row, Col } from "react-bootstrap";
 
 const App = () => {
   const dashboardItems = [
-    { component: <Portfolio />, id: "portfolio", works },
+    { component: <Portfolio />, id: "portfolio" },
     { component: <BitcoinPricePrediction />, id: "price-prediction" },
     { component: <CryptoExchangeRates />, id: "daily-changes" },
     { component: <MyBitcoinPriceChange btcBalance={0.01508673} />, id: "btc-change" },
