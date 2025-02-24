@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_KEY = "8b3ddd5dc13243b7a3648d23262820f2";
-const NEWS_URL = `https://newsapi.org/v2/everything?q=bitcoin&language=en&sortBy=publishedAt&pageSize=5&apiKey=${API_KEY}`;
+const API_URL = "https://bitcoin-backend-pps2.onrender.com"; // Update with your backend URL
 
 const News = () => {
   const [news, setNews] = useState([]);
@@ -15,13 +14,14 @@ const News = () => {
     const fetchNews = async () => {
       try {
         setError(null);
+        const response = await axios.get(`${API_URL}/api/bitcoin-news`, {
+          signal: abortController.signal,
+        });
 
-        const response = await axios.get(NEWS_URL, { signal: abortController.signal });
-
-        if (response.data?.articles?.length) {
-          setNews(response.data.articles);
+        if (response.data.success) {
+          setNews(response.data.news);
         } else {
-          setError("No recent news available.");
+          throw new Error(response.data.error);
         }
       } catch (err) {
         if (!axios.isCancel(err)) {
@@ -56,8 +56,7 @@ const News = () => {
                 <h6 className="mb-1">{item.title}</h6>
               </a>
               <p className="text-muted small">
-                <strong>{item.source.name}</strong> -{" "}
-                {new Date(item.publishedAt).toLocaleDateString()}
+                <strong>{item.source}</strong> - {new Date(item.publishedAt).toLocaleDateString()}
               </p>
             </li>
           ))}
