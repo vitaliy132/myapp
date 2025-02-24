@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
-const API_KEY = "c7792603-9a9a-4a59-8bd6-e3335c2fd98f";
-const assets = ["BTC", "ETH", "XRP"];
+const API_URL = "https://bitcoin-backend-pps2.onrender.com";
 const REFRESH_INTERVAL = 5000;
 
 const CryptoExchangeRates = () => {
@@ -14,18 +13,11 @@ const CryptoExchangeRates = () => {
     const fetchExchangeRates = async () => {
       setError(null);
       try {
-        const responses = await Promise.all(
-          assets.map((asset) =>
-            axios.get(`https://rest.coinapi.io/v1/exchangerate/${asset}/USD?apikey=${API_KEY}`),
-          ),
-        );
+        const response = await axios.get(`${API_URL}/api/exchange-rates`);
 
-        const rates = responses.reduce((acc, response, index) => {
-          acc[assets[index]] = response.data?.rate ?? "N/A";
-          return acc;
-        }, {});
-
-        if (isMounted.current) setExchangeRates(rates);
+        if (response.data.success && isMounted.current) {
+          setExchangeRates(response.data.rates);
+        }
       } catch (error) {
         console.error("Error fetching exchange rates:", error);
         if (isMounted.current) setError("Error fetching exchange rates. Please try again later.");

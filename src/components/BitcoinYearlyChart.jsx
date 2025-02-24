@@ -10,7 +10,7 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const API_URL = "https://your-backend.onrender.com"; // Change this after deploying
+const API_URL = "https://bitcoin-backend-pps2.onrender.com/";
 
 const BitcoinYearlyChart = () => {
   const [data, setData] = useState([]);
