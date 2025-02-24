@@ -2,47 +2,43 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Portfolio = () => {
-  const [portfolio, setPortfolio] = useState({});
+  const [btcPrice, setBtcPrice] = useState(null);
   const [error, setError] = useState(null);
   const refreshInterval = 5000;
 
-  const backendUrl = "https://bitcoin-backend-pps2.onrender.com/api/portfolio-rates";
+  const backendUrl = "https://bitcoin-backend-pps2.onrender.com/api/bitcoin-price";
 
-  const fetchExchangeRates = async () => {
+  const fetchBitcoinPrice = async () => {
     setError(null);
     try {
       const response = await axios.get(backendUrl);
       if (response.data.success) {
-        setPortfolio(response.data.rates);
+        setBtcPrice(response.data.price);
       } else {
-        throw new Error("Failed to fetch portfolio exchange rates.");
+        throw new Error("Failed to fetch Bitcoin price.");
       }
     } catch (error) {
-      setError("Error fetching portfolio exchange rates. Please try again later.");
+      setError("Error fetching Bitcoin price. Please try again later.");
     }
   };
 
   useEffect(() => {
-    fetchExchangeRates(); // Initial fetch
-    const intervalId = setInterval(fetchExchangeRates, refreshInterval);
+    fetchBitcoinPrice(); // Initial fetch
+    const intervalId = setInterval(fetchBitcoinPrice, refreshInterval);
     return () => clearInterval(intervalId);
   }, []);
 
   return (
     <div>
-      <h5>Cryptocurrency Portfolio Prices</h5>
+      <h5>Bitcoin Price (CoinMarketCap)</h5>
       {error ? (
         <p className="text-danger">{error}</p>
-      ) : Object.keys(portfolio).length === 0 ? (
+      ) : btcPrice === null ? (
         <p>Loading...</p>
       ) : (
-        <ul>
-          {Object.entries(portfolio).map(([asset, exchangeRate]) => (
-            <li key={asset}>
-              <strong>{asset}</strong>: {exchangeRate ? exchangeRate.toFixed(2) : "N/A"} USD
-            </li>
-          ))}
-        </ul>
+        <p>
+          <strong>BTC:</strong> {btcPrice} USD
+        </p>
       )}
     </div>
   );
