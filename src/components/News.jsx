@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_URL = "https://bitcoin-backend-pps2.onrender.com"; // Update with your backend URL
+const API_URL = "https://bitcoin-backend-pps2.onrender.com";
 
 const News = () => {
   const [news, setNews] = useState([]);
