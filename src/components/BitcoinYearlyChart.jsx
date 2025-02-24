@@ -10,7 +10,7 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const API_KEY = "c7792603-9a9a-4a59-8bd6-e3335c2fd98f";
+const API_URL = "https://your-backend.onrender.com"; // Change this after deploying
 
 const BitcoinYearlyChart = () => {
   const [data, setData] = useState([]);
@@ -21,24 +21,10 @@ const BitcoinYearlyChart = () => {
 
     const fetchYearlyData = async () => {
       try {
-        const yearStart = new Date(new Date().getFullYear(), 0, 1).toISOString().split("T")[0];
+        const response = await axios.get(`${API_URL}/api/bitcoin-yearly`);
 
-        const response = await axios.get(
-          `https://rest.coinapi.io/v1/exchangerate/BTC/USD/history?period_id=1DAY&time_start=${yearStart}T00:00:00&apikey=${API_KEY}`,
-        );
-
-        if (response.data?.length > 0) {
-          const formattedData = response.data
-            .filter((entry) => entry.rate_close)
-            .map((entry) => ({
-              date: new Date(entry.time_period_start).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              }),
-              price: parseFloat(entry.rate_close.toFixed(2)),
-            }));
-
-          if (isMounted) setData(formattedData.reverse());
+        if (response.data.success && isMounted) {
+          setData(response.data.data);
         }
       } catch (error) {
         console.error("Error fetching Bitcoin yearly data:", error);
