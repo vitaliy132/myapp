@@ -14,6 +14,7 @@ const CryptoExchangeRates = () => {
       setError(null);
       try {
         const response = await axios.get(`${API_URL}/api/exchange-rates`);
+
         if (response.data.success && isMounted.current) {
           setExchangeRates(response.data.rates);
         }
@@ -25,6 +26,7 @@ const CryptoExchangeRates = () => {
 
     fetchExchangeRates();
     const intervalId = setInterval(fetchExchangeRates, REFRESH_INTERVAL);
+
     return () => {
       isMounted.current = false;
       clearInterval(intervalId);
@@ -32,14 +34,14 @@ const CryptoExchangeRates = () => {
   }, []);
 
   return (
-    <div className="component-container p-3 mb-3 border rounded">
+    <div>
       <h5>Crypto Exchange Rates</h5>
       {error ? (
         <p className="text-danger">{error}</p>
       ) : Object.keys(exchangeRates).length === 0 ? (
         <p>Loading...</p>
       ) : (
-        <ul className="list-unstyled">
+        <ul>
           {Object.entries(exchangeRates).map(([asset, rate]) => (
             <li key={asset}>
               <strong>{asset}</strong>: {rate !== "N/A" ? `${rate.toFixed(2)} USD` : "N/A"}

@@ -14,7 +14,10 @@ const MyBitcoinValue = () => {
       try {
         setLoading(true);
         setError(null);
+
         const response = await axios.get(`${API_URL}/api/bitcoin-price`);
+        console.log("API Response:", response.data);
+
         if (response.data.success && response.data.price) {
           setCurrentPrice(response.data.price);
         } else {
@@ -36,7 +39,7 @@ const MyBitcoinValue = () => {
   const btcValue = currentPrice ? (BTC_BALANCE * currentPrice).toFixed(2) : null;
 
   return (
-    <div className="component-container p-3 mb-3 border rounded">
+    <div>
       <h5>My Bitcoin Value</h5>
       {loading ? (
         <p>Loading...</p>
@@ -44,7 +47,7 @@ const MyBitcoinValue = () => {
         <p className="text-danger">{error}</p>
       ) : (
         <p>
-          <strong>${btcValue}</strong>
+          <strong>${btcValue}</strong>)
         </p>
       )}
     </div>
