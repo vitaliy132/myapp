@@ -16,7 +16,7 @@ const App = () => {
     { component: <Portfolio />, id: "portfolio" },
     { component: <BitcoinPricePrediction />, id: "price-prediction" },
     { component: <CryptoExchangeRates />, id: "daily-changes" },
-    { component: <MyBitcoinPriceChange btcBalance={0.01508673} />, id: "btc-change" },
+    { component: <MyBitcoinPriceChange />, id: "btc-change" },
   ];
 
   return (
