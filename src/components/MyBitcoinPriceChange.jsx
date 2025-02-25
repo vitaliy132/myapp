@@ -2,72 +2,56 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const API_URL = "https://bitcoin-backend-pps2.onrender.com";
+const BTC_BALANCE = 0.01508673; // Your Bitcoin balance
 
-const MyBitcoinPriceChange = ({ btcBalance = 1 }) => {
-  const [data, setData] = useState(null);
+const MyBitcoinValue = () => {
   const [currentPrice, setCurrentPrice] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPrice = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        // Fetch Bitcoin price change (fixed endpoint)
-        const priceResponse = await axios.get(`${API_URL}/api/bitcoin-price`);
-        console.log("Bitcoin Price API Response:", priceResponse.data);
+        const response = await axios.get(`${API_URL}/api/bitcoin-price`);
+        console.log("API Response:", response.data);
 
-        if (priceResponse.data.success) {
-          setCurrentPrice(priceResponse.data.price);
+        if (response.data.success && response.data.price) {
+          setCurrentPrice(response.data.price);
         } else {
-          throw new Error(priceResponse.data.error || "Price API error.");
+          throw new Error("Failed to fetch Bitcoin price.");
         }
       } catch (err) {
-        const errorMsg = err.response?.data?.error || err.message || "Unknown error";
-        setError(`Failed to fetch Bitcoin data: ${errorMsg}`);
-        console.error("Error fetching BTC data:", err);
+        setError("Error fetching Bitcoin price. Please try again.");
+        console.error(err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-
-    // Auto-refresh every 5 minutes
-    const interval = setInterval(fetchData, 300000);
+    fetchPrice();
+    const interval = setInterval(fetchPrice, 300000); // Refresh every 5 mins
     return () => clearInterval(interval);
-  }, [btcBalance]); // Runs when btcBalance changes
+  }, []);
 
-  const btcValue = currentPrice ? btcBalance * currentPrice : null;
+  const btcValue = currentPrice ? (BTC_BALANCE * currentPrice).toFixed(2) : null;
 
   return (
     <div>
-      <h5>Bitcoin Price</h5>
+      <h3>My Bitcoin Value</h3>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
         <p className="text-danger">{error}</p>
       ) : (
-        <div>
-          <p>
-            BTC Balance: <strong>{btcBalance} BTC</strong>
-          </p>
-          {currentPrice !== null && (
-            <p>
-              Current BTC Price: <strong>${currentPrice.toLocaleString()}</strong>
-            </p>
-          )}
-          {btcValue !== null && (
-            <p>
-              Your BTC Value: <strong>${btcValue.toLocaleString()}</strong>
-            </p>
-          )}
-        </div>
+        <p>
+          <strong>${btcValue}</strong> (BTC Price: ${currentPrice.toLocaleString()})
+        </p>
       )}
     </div>
   );
 };
 
-export default MyBitcoinPriceChange;
+export default MyBitcoinValue;
