@@ -16,7 +16,6 @@ const MyBitcoinValue = () => {
         setError(null);
 
         const response = await axios.get(`${API_URL}/api/bitcoin-price`);
-        console.log("API Response:", response.data);
 
         if (response.data.success && response.data.price) {
           setCurrentPrice(response.data.price);
