@@ -23,14 +23,13 @@ const Portfolio = () => {
   };
 
   useEffect(() => {
-    fetchBitcoinPrice(); // Initial fetch
+    fetchBitcoinPrice();
     const intervalId = setInterval(fetchBitcoinPrice, refreshInterval);
     return () => clearInterval(intervalId);
   }, []);
 
   return (
     <div>
-      <h5>Bitcoin Price (CoinMarketCap)</h5>
       {error ? (
         <p className="text-danger">{error}</p>
       ) : btcPrice === null ? (
