@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const API_URL = "https://bitcoin-backend-pps2.onrender.com";
-const BTC_BALANCE = 0.01508673; // Your Bitcoin balance
+const BTC_BALANCE = 0.01508673;
 
 const MyBitcoinValue = () => {
   const [currentPrice, setCurrentPrice] = useState(null);
@@ -32,7 +32,7 @@ const MyBitcoinValue = () => {
     };
 
     fetchPrice();
-    const interval = setInterval(fetchPrice, 300000); // Refresh every 5 mins
+    const interval = setInterval(fetchPrice, 300000);
     return () => clearInterval(interval);
   }, []);
 
