@@ -36,15 +36,14 @@ const Portfolio = () => {
   return (
     <div>
       <h5>Cryptocurrency Prices</h5>
-
       {error ? (
         <p className="text-danger">{error}</p>
       ) : btcPrice === null ? (
         <p>Loading...</p>
       ) : (
-        <p>
+        <h3>
           <strong>BTC:</strong> {btcPrice} USD
-        </p>
+        </h3>
       )}
     </div>
   );
