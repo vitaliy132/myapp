@@ -18,7 +18,6 @@ const Portfolio = () => {
           maximumFractionDigits: 2,
         });
 
-        // Ensure exactly 7 characters
         setBtcPrice(formattedPrice.length > 7 ? formattedPrice.slice(0, 7) : formattedPrice);
       } else {
         throw new Error("Failed to fetch Bitcoin price.");
