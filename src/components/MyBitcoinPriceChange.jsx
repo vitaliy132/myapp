@@ -40,14 +40,14 @@ const MyBitcoinValue = () => {
 
   return (
     <div>
-      <h3>My Bitcoin Value</h3>
+      <h5>My Bitcoin Value</h5>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
         <p className="text-danger">{error}</p>
       ) : (
         <p>
-          <strong>${btcValue}</strong> (BTC Price: ${currentPrice.toLocaleString()})
+          <strong>${btcValue}</strong>)
         </p>
       )}
     </div>

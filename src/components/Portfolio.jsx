@@ -13,7 +13,13 @@ const Portfolio = () => {
     try {
       const response = await axios.get(backendUrl);
       if (response.data.success) {
-        setBtcPrice(response.data.price);
+        const formattedPrice = Number(response.data.price).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+
+        // Ensure exactly 7 characters
+        setBtcPrice(formattedPrice.length > 7 ? formattedPrice.slice(0, 7) : formattedPrice);
       } else {
         throw new Error("Failed to fetch Bitcoin price.");
       }
