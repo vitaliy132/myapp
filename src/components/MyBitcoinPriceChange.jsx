@@ -46,9 +46,7 @@ const MyBitcoinValue = () => {
       ) : error ? (
         <p className="text-danger">{error}</p>
       ) : (
-        <p>
-          <strong>${btcValue}</strong>
-        </p>
+        <h3>${btcValue}</h3>
       )}
     </div>
   );
