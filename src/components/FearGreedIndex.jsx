@@ -25,7 +25,7 @@ const FearGreedIndex = () => {
   }, []);
 
   return (
-    <div className="soft-card">
+    <div>
       <h5>Crypto Fear & Greed Index</h5>
       {error ? (
         <p className="text-danger">{error}</p>
