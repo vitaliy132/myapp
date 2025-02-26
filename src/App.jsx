@@ -2,7 +2,7 @@ import React from "react";
 import News from "./components/News";
 import Portfolio from "./components/Portfolio";
 import BitcoinPricePrediction from "./components/BitcoinYearPrice";
-import FearGreedIndex from "./components/FearGreedIndex ";
+import FearGreedIndex from "./components/FearGreedIndex";
 import MyBitcoinPriceChange from "./components/MyBitcoinPriceChange";
 import BitcoinYearlyChart from "./components/BitcoinYearlyChart";
 import Sidebar from "./components/Sidebar";
