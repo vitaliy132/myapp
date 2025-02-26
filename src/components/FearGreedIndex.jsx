@@ -32,7 +32,7 @@ const FearGreedIndex = () => {
       ) : index ? (
         <div>
           <h3>{index}/100</h3>
-          <p>{classification}</p>
+          <h5>{classification}</h5>
         </div>
       ) : (
         <p>Loading...</p>
