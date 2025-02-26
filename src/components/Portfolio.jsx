@@ -41,7 +41,7 @@ const Portfolio = () => {
       ) : btcPrice === null ? (
         <p>Loading...</p>
       ) : (
-        <h3>BTC: {btcPrice}</h3>
+        <h3>BTC: {btcPrice} USD</h3>
       )}
     </div>
   );
