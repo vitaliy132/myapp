@@ -2,7 +2,7 @@ import React from "react";
 import News from "./components/News";
 import Portfolio from "./components/Portfolio";
 import BitcoinPricePrediction from "./components/BitcoinYearPrice";
-import CryptoExchangeRates from "./components/CryptoExchangeRates ";
+import FearGreedIndex from "./components/FearGreedIndex ";
 import MyBitcoinPriceChange from "./components/MyBitcoinPriceChange";
 import BitcoinYearlyChart from "./components/BitcoinYearlyChart";
 import Sidebar from "./components/Sidebar";
@@ -15,7 +15,7 @@ const App = () => {
   const dashboardItems = [
     { component: <Portfolio />, id: "portfolio" },
     { component: <BitcoinPricePrediction />, id: "price-prediction" },
-    { component: <CryptoExchangeRates />, id: "daily-changes" },
+    { component: <FearGreedIndex />, id: "daily-changes" },
     { component: <MyBitcoinPriceChange />, id: "btc-change" },
   ];
 
