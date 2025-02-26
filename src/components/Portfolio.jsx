@@ -14,9 +14,9 @@ const Portfolio = () => {
       const response = await axios.get(backendUrl);
       if (response.data.success) {
         setPrices({
-          btc: formatPrice(response.data.prices.btc),
-          eth: formatPrice(response.data.prices.eth),
-          xrp: formatPrice(response.data.prices.xrp),
+          btc: response.data.prices.btc.toFixed(2),
+          eth: response.data.prices.eth.toFixed(2),
+          xrp: response.data.prices.xrp.toFixed(4),
         });
       } else {
         throw new Error("Failed to fetch cryptocurrency prices.");
@@ -26,15 +26,6 @@ const Portfolio = () => {
     }
   };
 
-  const formatPrice = (price) => {
-    if (!price) return null;
-    const formattedPrice = Number(price).toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    return formattedPrice.length > 7 ? formattedPrice.slice(0, 7) : formattedPrice;
-  };
-
   useEffect(() => {
     fetchCryptoPrices();
     const intervalId = setInterval(fetchCryptoPrices, refreshInterval);
@@ -42,19 +33,33 @@ const Portfolio = () => {
   }, []);
 
   return (
-    <div>
-      <h5>Cryptocurrency Prices</h5>
-      {error ? (
-        <p className="text-danger">{error}</p>
-      ) : prices.btc === null ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          <h3>BTC: {prices.btc} USD</h3>
-          <h3>ETH: {prices.eth} USD</h3>
-          <h3>XRP: {prices.xrp} USD</h3>
-        </>
-      )}
+    <div className="dashboard-container">
+      <div className="soft-card">
+        <h2>Live Cryptocurrency Prices</h2>
+        {error ? (
+          <p className="error-message">{error}</p>
+        ) : prices.btc === null ? (
+          <p className="loading">Loading...</p>
+        ) : (
+          <div className="crypto-grid">
+            <div className="soft-card crypto-card">
+              <img src="/images/btc.png" alt="BTC" className="crypto-logo" />
+              <h3>Bitcoin (BTC)</h3>
+              <p className="crypto-price">${prices.btc} USD</p>
+            </div>
+            <div className="soft-card crypto-card">
+              <img src="/images/eth.png" alt="ETH" className="crypto-logo" />
+              <h3>Ethereum (ETH)</h3>
+              <p className="crypto-price">${prices.eth} USD</p>
+            </div>
+            <div className="soft-card crypto-card">
+              <img src="/images/xrp.png" alt="XRP" className="crypto-logo" />
+              <h3>XRP</h3>
+              <p className="crypto-price">${prices.xrp} USD</p>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
