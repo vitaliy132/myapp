@@ -26,7 +26,7 @@ const FearGreedIndex = () => {
     fetchIndex();
   }, []);
 
-  const gaugeValue = index !== null ? index : 50;
+  const gaugeValue = index !== null ? index : 0;
 
   const COLORS = ["#ff0000", "#ff7f00", "#008000"];
 
