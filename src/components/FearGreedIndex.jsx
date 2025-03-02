@@ -30,15 +30,7 @@ const FearGreedIndex = () => {
     fetchIndex();
   }, []);
 
-  const COLORS = ["#ff0000", "#ff7f00", "#ffff00", "#7fff00", "#008000"];
-
-  const getGaugeColor = (value) => {
-    if (value < 20) return COLORS[0]; // Extreme Fear (Red)
-    if (value < 40) return COLORS[1]; // Fear (Orange)
-    if (value < 60) return COLORS[2]; // Neutral (Yellow)
-    if (value < 80) return COLORS[3]; // Greed (Light Green)
-    return COLORS[4]; // Extreme Greed (Green)
-  };
+  const COLORS = ["#ff0000", "#ff7f00", "#008000"]; // Red (Fear), Orange (Neutral), Green (Greed)
 
   if (error) {
     return (
@@ -52,14 +44,17 @@ const FearGreedIndex = () => {
     return <p style={{ textAlign: "center" }}>Loading...</p>;
   }
 
-  const gaugeColor = getGaugeColor(index);
   const data = [
-    { value: 100 - index }, // Background (gray)
-    { value: index }, // Colored portion
+    { value: 33.3, color: COLORS[0] }, // Red (0-33)
+    { value: 33.3, color: COLORS[1] }, // Orange (34-66)
+    { value: 33.4, color: COLORS[2] }, // Green (67-100)
   ];
 
+  // Calculate arrow position
+  const arrowRotation = (index / 100) * 180 - 90;
+
   return (
-    <div style={{ textAlign: "center" }}>
+    <div style={{ textAlign: "center", position: "relative" }}>
       <h5>Crypto Fear & Greed Index</h5>
       <PieChart width={200} height={120}>
         <Pie
@@ -71,10 +66,23 @@ const FearGreedIndex = () => {
           innerRadius={50}
           outerRadius={70}
           dataKey="value">
-          <Cell fill="#E0E0E0" /> {/* Background */}
-          <Cell fill={gaugeColor} /> {/* Foreground color */}
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={entry.color} />
+          ))}
         </Pie>
       </PieChart>
+      {/* Arrow Indicator */}
+      <div
+        style={{
+          position: "absolute",
+          left: "50%",
+          bottom: "40px",
+          transform: `translateX(-50%) rotate(${arrowRotation}deg)`,
+          transformOrigin: "bottom center",
+          fontSize: "20px",
+        }}>
+        ⬆️
+      </div>
       <h3>{index}/100</h3>
       <h5>{classification}</h5>
     </div>
