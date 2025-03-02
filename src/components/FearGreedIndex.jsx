@@ -45,7 +45,8 @@ const FearGreedIndex = () => {
     { value: 33, color: COLORS[2] }, // Green (Greed)
   ];
 
-  const angle = 90 - (index / 100) * 180;
+  // ✅ Corrected Arrow Angle Calculation
+  const angle = (index / 100) * 180 - 90; // Now it points left for low values & right for high values
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -72,7 +73,7 @@ const FearGreedIndex = () => {
             x1="110"
             y1="100"
             x2={110 + 40 * Math.cos((angle * Math.PI) / 180)}
-            y2={100 - 40 * Math.sin((angle * Math.PI) / 180)}
+            y2={100 + 40 * Math.sin((angle * Math.PI) / 180)}
             stroke="black"
             strokeWidth="4"
           />
