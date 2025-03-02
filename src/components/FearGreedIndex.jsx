@@ -45,8 +45,8 @@ const FearGreedIndex = () => {
     { value: 33, color: COLORS[2] }, // Green (Greed)
   ];
 
-  // ✅ Corrected Arrow Angle Calculation
-  const angle = 90 + (index / 100) * 180; // Fixes direction
+  // ✅ Fixed Arrow Angle Calculation
+  const angle = 225 - (index / 100) * 180; // Corrected to match Fear/Greed scale
 
   return (
     <div style={{ textAlign: "center" }}>
