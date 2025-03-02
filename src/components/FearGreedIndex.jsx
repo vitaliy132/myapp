@@ -50,9 +50,21 @@ const FearGreedIndex = () => {
     { value: 33.4, color: COLORS[2] }, // Green (67-100)
   ];
 
+  // Calculate arrow position
+  const arrowAngle = (index / 100) * 180; // Scale index to 180°
+  const arrowX = 100 + 60 * Math.cos((arrowAngle * Math.PI) / 180); // Adjust radius
+  const arrowY = 100 - 60 * Math.sin((arrowAngle * Math.PI) / 180);
+
   return (
     <div style={{ textAlign: "center", position: "relative" }}>
       <h5>Crypto Fear & Greed Index</h5>
+      <svg width={200} height={120} style={{ position: "absolute", left: 0, top: 0 }}>
+        <line x1="100" y1="100" x2={arrowX} y2={arrowY} stroke="black" strokeWidth="2" />
+        <polygon
+          points={`${arrowX - 5},${arrowY} ${arrowX + 5},${arrowY} ${arrowX},${arrowY - 10}`}
+          fill="black"
+        />
+      </svg>
       <PieChart width={200} height={120}>
         <Pie
           data={data}
