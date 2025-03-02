@@ -11,7 +11,7 @@ const FearGreedIndex = () => {
     try {
       const response = await axios.get("https://bitcoin-backend-pps2.onrender.com/api/fear-greed");
       if (response.data.success) {
-        setIndex(response.data.index);
+        setIndex(parseInt(response.data.index));
         setClassification(response.data.classification);
       } else {
         throw new Error("Failed to fetch index.");
@@ -25,73 +25,59 @@ const FearGreedIndex = () => {
     fetchIndex();
   }, []);
 
-  const COLORS = ["#ff0000", "#ff7f00", "#008000"];
+  const COLORS = ["#ff0000", "#ff7f00", "#ffff00", "#7fff00", "#008000"];
+  const gaugeValue = index !== null ? index : 50;
 
   const getGaugeColor = (value) => {
-    if (value < 33) return COLORS[0]; // Red (Fear)
-    if (value < 66) return COLORS[1]; // Orange (Neutral)
-    return COLORS[2]; // Green (Greed)
+    if (value < 20) return COLORS[0]; // Red
+    if (value < 40) return COLORS[1]; // Orange
+    if (value < 60) return COLORS[2]; // Yellow
+    if (value < 80) return COLORS[3]; // Light Green
+    return COLORS[4]; // Green
   };
 
-  const gaugeValue = index !== null ? index : 50;
   const gaugeColor = getGaugeColor(gaugeValue);
 
-  const data = [
-    { value: 33, color: COLORS[0] },
-    { value: 33, color: COLORS[1] },
-    { value: 34, color: COLORS[2] },
-  ];
+  // Define gradient colors
+  const gradientId = "gaugeGradient";
 
-  const arrowAngle = (gaugeValue / 100) * 180 - 90;
+  // Calculate needle rotation (-90° for 0, 90° for 100)
+  const needleAngle = (gaugeValue / 100) * 180 - 90;
 
   return (
-    <div style={{ textAlign: "center", position: "relative" }}>
-      <h5>Crypto Fear & Greed Index</h5>
+    <div style={{ textAlign: "center", position: "relative", width: "250px", margin: "auto" }}>
+      <h4>Fear & Greed Index</h4>
       {error ? (
         <p className="text-danger">{error}</p>
-      ) : index !== null ? (
-        <div style={{ position: "relative", display: "inline-block" }}>
-          <PieChart width={200} height={120}>
-            <Pie
-              data={data}
-              dataKey="value"
-              cx="50%"
-              cy="100%"
-              startAngle={180}
-              endAngle={0}
-              innerRadius={50}
-              outerRadius={70}>
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-          </PieChart>
-          <svg width="200" height="120" style={{ position: "absolute", top: 0, left: 0 }}>
+      ) : (
+        <div>
+          <svg width={250} height={150} viewBox="0 0 250 150">
+            <defs>
+              <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#ff0000" />
+                <stop offset="50%" stopColor="#ffff00" />
+                <stop offset="100%" stopColor="#008000" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M 25 125 A 100 100 0 0 1 225 125"
+              fill="none"
+              stroke={`url(#${gradientId})`}
+              strokeWidth="20"
+            />
             <line
-              x1="100"
-              y1="100"
-              x2={100 + 40 * Math.cos((arrowAngle * Math.PI) / 180)}
-              y2={100 - 40 * Math.sin((arrowAngle * Math.PI) / 180)}
+              x1="125"
+              y1="125"
+              x2={125 + 50 * Math.cos((needleAngle * Math.PI) / 180)}
+              y2={125 + 50 * Math.sin((needleAngle * Math.PI) / 180)}
               stroke="black"
-              strokeWidth="2"
+              strokeWidth="4"
             />
-            <polygon
-              points={`
-                ${100 + 40 * Math.cos((arrowAngle * Math.PI) / 180)},
-                ${100 - 40 * Math.sin((arrowAngle * Math.PI) / 180)}
-                ${100 + 35 * Math.cos(((arrowAngle - 5) * Math.PI) / 180)},
-                ${100 - 35 * Math.sin(((arrowAngle - 5) * Math.PI) / 180)}
-                ${100 + 35 * Math.cos(((arrowAngle + 5) * Math.PI) / 180)},
-                ${100 - 35 * Math.sin(((arrowAngle + 5) * Math.PI) / 180)}
-              `}
-              fill="black"
-            />
+            <circle cx="125" cy="125" r="5" fill="black" />
           </svg>
           <h3>{gaugeValue}/100</h3>
           <h5>{classification}</h5>
         </div>
-      ) : (
-        <p>Loading...</p>
       )}
     </div>
   );
