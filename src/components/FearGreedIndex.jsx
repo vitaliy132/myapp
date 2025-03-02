@@ -50,17 +50,17 @@ const FearGreedIndex = () => {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h5>Crypto Fear & Greed Index</h5>
+      <h6>Crypto Fear & Greed Index</h6>
       <div style={{ position: "relative", display: "inline-block" }}>
-        <PieChart width={220} height={130}>
+        <PieChart width={200} height={120}>
           <Pie
             data={data}
             cx="50%"
             cy="100%"
             startAngle={180}
             endAngle={0}
-            innerRadius={50}
-            outerRadius={70}
+            innerRadius={45}
+            outerRadius={65}
             dataKey="value">
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
@@ -68,19 +68,19 @@ const FearGreedIndex = () => {
           </Pie>
         </PieChart>
         {/* Arrow */}
-        <svg width="220" height="130" style={{ position: "absolute", top: 0, left: 0 }}>
+        <svg width="200" height="120" style={{ position: "absolute", top: 0, left: 0 }}>
           <line
-            x1="110"
-            y1="100"
-            x2={110 + 40 * Math.cos((angle * Math.PI) / 180)}
-            y2={100 - 40 * Math.sin((angle * Math.PI) / 180)}
+            x1="100"
+            y1="90"
+            x2={100 + 35 * Math.cos((angle * Math.PI) / 180)}
+            y2={90 - 35 * Math.sin((angle * Math.PI) / 180)}
             stroke="black"
-            strokeWidth="4"
+            strokeWidth="3"
           />
-          <circle cx="110" cy="100" r="5" fill="black" />
+          <circle cx="100" cy="90" r="4" fill="black" />
         </svg>
-        <h3>{index}/100</h3>
-        <h5>{classification}</h5>
+        <h4 style={{ margin: "5px 0" }}>{index}/100</h4>
+        <h6>{classification}</h6>
       </div>
     </div>
   );
