@@ -40,13 +40,12 @@ const FearGreedIndex = () => {
   const COLORS = ["#ff0000", "#ff7f00", "#008000"];
 
   const data = [
-    { value: 33, color: COLORS[0] }, // Red (Fear)
-    { value: 34, color: COLORS[1] }, // Orange (Neutral)
-    { value: 33, color: COLORS[2] }, // Green (Greed)
+    { value: 33, color: COLORS[0] },
+    { value: 34, color: COLORS[1] },
+    { value: 33, color: COLORS[2] },
   ];
 
-  // ✅ Fixed Arrow Angle Calculation
-  const angle = 225 - (index / 100) * 180; // Corrected to match Fear/Greed scale
+  const angle = 225 - (index / 100) * 180;
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -67,7 +66,6 @@ const FearGreedIndex = () => {
             ))}
           </Pie>
         </PieChart>
-        {/* Arrow */}
         <svg width="220" height="130" style={{ position: "absolute", top: 0, left: 0 }}>
           <line
             x1="110"
