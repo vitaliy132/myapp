@@ -6,6 +6,7 @@ const FearGreedIndex = () => {
   const [index, setIndex] = useState(null);
   const [classification, setClassification] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchIndex = async () => {
@@ -21,12 +22,20 @@ const FearGreedIndex = () => {
         }
       } catch (error) {
         setError("Error fetching Fear & Greed Index. Try again later.");
+      } finally {
+        setLoading(false);
       }
     };
     fetchIndex();
   }, []);
 
-  const gaugeValue = index !== null ? index : 0;
+  if (loading) {
+    return <h5 style={{ textAlign: "center" }}>Loading...</h5>;
+  }
+
+  if (error) {
+    return <h5 style={{ textAlign: "center", color: "red" }}>{error}</h5>;
+  }
 
   const COLORS = ["#ff0000", "#ff7f00", "#008000"];
 
@@ -36,47 +45,42 @@ const FearGreedIndex = () => {
     { value: 33, color: COLORS[2] }, // Green (Greed)
   ];
 
-  // 🔥 FIXED: Reverse angle calculation so arrow moves left-to-right
-  const angle = 90 - (gaugeValue / 100) * 180;
+  const angle = 90 - (index / 100) * 180;
 
   return (
     <div style={{ textAlign: "center" }}>
       <h5>Crypto Fear & Greed Index</h5>
-      {error ? (
-        <p className="text-danger">{error}</p>
-      ) : (
-        <div style={{ position: "relative", display: "inline-block" }}>
-          <PieChart width={220} height={130}>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="100%"
-              startAngle={180}
-              endAngle={0}
-              innerRadius={50}
-              outerRadius={70}
-              dataKey="value">
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-          </PieChart>
-          {/* Arrow */}
-          <svg width="220" height="130" style={{ position: "absolute", top: 0, left: 0 }}>
-            <line
-              x1="110"
-              y1="100"
-              x2={110 + 40 * Math.cos((angle * Math.PI) / 180)}
-              y2={100 - 40 * Math.sin((angle * Math.PI) / 180)}
-              stroke="black"
-              strokeWidth="4"
-            />
-            <circle cx="110" cy="100" r="5" fill="black" />
-          </svg>
-          <h3>{gaugeValue}/100</h3>
-          <h5>{classification}</h5>
-        </div>
-      )}
+      <div style={{ position: "relative", display: "inline-block" }}>
+        <PieChart width={220} height={130}>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="100%"
+            startAngle={180}
+            endAngle={0}
+            innerRadius={50}
+            outerRadius={70}
+            dataKey="value">
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} />
+            ))}
+          </Pie>
+        </PieChart>
+        {/* Arrow */}
+        <svg width="220" height="130" style={{ position: "absolute", top: 0, left: 0 }}>
+          <line
+            x1="110"
+            y1="100"
+            x2={110 + 40 * Math.cos((angle * Math.PI) / 180)}
+            y2={100 - 40 * Math.sin((angle * Math.PI) / 180)}
+            stroke="black"
+            strokeWidth="4"
+          />
+          <circle cx="110" cy="100" r="5" fill="black" />
+        </svg>
+        <h3>{index}/100</h3>
+        <h5>{classification}</h5>
+      </div>
     </div>
   );
 };
