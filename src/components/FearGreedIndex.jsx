@@ -50,9 +50,6 @@ const FearGreedIndex = () => {
     { value: 33.4, color: COLORS[2] }, // Green (67-100)
   ];
 
-  // Calculate arrow position
-  const arrowRotation = (index / 100) * 180 - 90;
-
   return (
     <div style={{ textAlign: "center", position: "relative" }}>
       <h5>Crypto Fear & Greed Index</h5>
@@ -71,18 +68,6 @@ const FearGreedIndex = () => {
           ))}
         </Pie>
       </PieChart>
-      {/* Arrow Indicator */}
-      <div
-        style={{
-          position: "absolute",
-          left: "50%",
-          bottom: "40px",
-          transform: `translateX(-50%) rotate(${arrowRotation}deg)`,
-          transformOrigin: "bottom center",
-          fontSize: "20px",
-        }}>
-        ⬆️
-      </div>
       <h3>{index}/100</h3>
       <h5>{classification}</h5>
     </div>
