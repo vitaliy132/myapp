@@ -28,24 +28,31 @@ const FearGreedIndex = () => {
   const COLORS = ["#ff0000", "#ff7f00", "#ffff00", "#7fff00", "#008000"];
 
   const getGaugeColor = (value) => {
-    if (value < 20) return COLORS[0];
-    if (value < 40) return COLORS[1];
-    if (value < 60) return COLORS[2];
-    if (value < 80) return COLORS[3];
-    return COLORS[4];
+    if (value < 20) return COLORS[0]; // Red
+    if (value < 40) return COLORS[1]; // Orange
+    if (value < 60) return COLORS[2]; // Yellow
+    if (value < 80) return COLORS[3]; // Light Green
+    return COLORS[4]; // Green
   };
 
-  const gaugeValue = index !== null ? index : 50;
+  // Force index to 70 for debugging
+  const gaugeValue = 70;
   const gaugeColor = getGaugeColor(gaugeValue);
 
-  const data = [{ value: gaugeValue }, { value: 100 - gaugeValue }];
+  console.log("Index:", gaugeValue, "Color:", gaugeColor); // Debugging
+
+  // Swap the slice order
+  const data = [
+    { value: 100 - gaugeValue }, // Background (gray)
+    { value: gaugeValue }, // Colored portion
+  ];
 
   return (
     <div style={{ textAlign: "center" }}>
       <h5>Crypto Fear & Greed Index</h5>
       {error ? (
         <p className="text-danger">{error}</p>
-      ) : index !== null ? (
+      ) : (
         <div>
           <PieChart width={200} height={120}>
             <Pie
@@ -57,15 +64,13 @@ const FearGreedIndex = () => {
               innerRadius={50}
               outerRadius={70}
               dataKey="value">
-              <Cell fill={gaugeColor} />
-              <Cell fill="#E0E0E0" />
+              <Cell fill="#E0E0E0" /> {/* Background first */}
+              <Cell fill={gaugeColor} /> {/* Foreground color */}
             </Pie>
           </PieChart>
-          <h3>{index}/100</h3>
+          <h3>{gaugeValue}/100</h3>
           <h5>{classification}</h5>
         </div>
-      ) : (
-        <p>Loading...</p>
       )}
     </div>
   );
