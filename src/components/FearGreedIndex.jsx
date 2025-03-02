@@ -25,17 +25,20 @@ const FearGreedIndex = () => {
     fetchIndex();
   }, []);
 
-  const COLORS = ["#ff0000", "#ffa500", "#ffff00", "#7fff00", "#008000"];
+  const COLORS = ["#ff0000", "#ff7f00", "#ffff00", "#7fff00", "#008000"];
 
-  const getGaugeColor = (index) => {
-    if (index < 20) return COLORS[0];
-    if (index < 40) return COLORS[1];
-    if (index < 60) return COLORS[2];
-    if (index < 80) return COLORS[3];
+  const getGaugeColor = (value) => {
+    if (value < 20) return COLORS[0];
+    if (value < 40) return COLORS[1];
+    if (value < 60) return COLORS[2];
+    if (value < 80) return COLORS[3];
     return COLORS[4];
   };
 
-  const data = [{ value: index || 50 }, { value: 100 - (index || 50) }];
+  const gaugeValue = index !== null ? index : 50;
+  const gaugeColor = getGaugeColor(gaugeValue);
+
+  const data = [{ value: gaugeValue }, { value: 100 - gaugeValue }];
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -54,8 +57,8 @@ const FearGreedIndex = () => {
               innerRadius={50}
               outerRadius={70}
               dataKey="value">
-              <Cell key="index" fill={getGaugeColor(index)} />
-              <Cell key="remaining" fill="#ddd" />
+              <Cell fill={gaugeColor} />
+              <Cell fill="#E0E0E0" />
             </Pie>
           </PieChart>
           <h3>{index}/100</h3>
