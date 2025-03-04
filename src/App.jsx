@@ -20,13 +20,13 @@ const App = () => {
   ];
 
   return (
-    <Container fluid className="dashboard-container">
-      <Row>
+    <Container fluid className="dashboard-container" style={{ height: "100vh" }}>
+      <Row style={{ height: "100%" }}>
         <Col md={2} className="p-3">
           <Sidebar />
         </Col>
 
-        <Col md={10} className="content p-4">
+        <Col md={10} className="content p-4" style={{ height: "100%" }}>
           <Row>
             {dashboardItems.map(({ component, id }) => (
               <Col md={3} key={id}>
@@ -35,16 +35,16 @@ const App = () => {
             ))}
           </Row>
 
-          <Row className="mt-4">
-            <Col md={6}>
-              <DashboardCard>
+          <Row className="mt-4" style={{ height: "100%" }}>
+            <Col md={6} style={{ height: "100%" }}>
+              <DashboardCard style={{ height: "100%" }}>
                 <div className="d-flex flex-column h-100">
                   <BitcoinYearlyChart />
                 </div>
               </DashboardCard>
             </Col>
-            <Col md={6}>
-              <DashboardCard>
+            <Col md={6} style={{ height: "100%" }}>
+              <DashboardCard style={{ height: "100%" }}>
                 <div className="d-flex flex-column h-100">
                   <h5 className="mb-3">Latest News</h5>
                   <News className="flex-grow-1" />
