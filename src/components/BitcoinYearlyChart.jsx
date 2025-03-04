@@ -47,12 +47,12 @@ const BitcoinYearlyChart = () => {
   }, []); // Commenting out the useEffect hook for the API call
 
   return (
-    <div>
+    <div style={{ width: "100%", height: "300px" }}>
       <h5>Bitcoin Yearly Chart</h5>
       {error ? (
         <p className="text-danger">{error}</p>
       ) : (
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
             <XAxis dataKey="date" tick={{ fontSize: 12 }} />
             <YAxis domain={["auto", "auto"]} />
