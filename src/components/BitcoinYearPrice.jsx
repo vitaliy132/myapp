@@ -33,6 +33,10 @@ function BitcoinPricePrediction() {
     };
   }, []);
 
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("en-US").format(price);
+  };
+
   return (
     <div>
       <h5>Bitcoin Price Prediction</h5>
@@ -43,7 +47,7 @@ function BitcoinPricePrediction() {
       ) : isNaN(prediction) || prediction === "N/A" ? (
         <p className="text-warning">Prediction not available</p>
       ) : (
-        <h3>${parseFloat(prediction).toFixed(2)}</h3>
+        <h3>${formatPrice(parseFloat(prediction).toFixed(2))}</h3>
       )}
     </div>
   );
