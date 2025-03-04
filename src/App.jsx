@@ -36,15 +36,15 @@ const App = () => {
           </Row>
 
           <Row className="mt-4">
-            <Col md={6}>
-              <DashboardCard>
+            <Col md={6} className="h-100">
+              <DashboardCard className="h-100">
                 <div className="d-flex flex-column h-100">
                   <BitcoinYearlyChart />
                 </div>
               </DashboardCard>
             </Col>
-            <Col md={6}>
-              <DashboardCard>
+            <Col md={6} className="h-100">
+              <DashboardCard className="h-100">
                 <div className="d-flex flex-column h-100">
                   <h5 className="mb-3">Latest News</h5>
                   <News className="flex-grow-1" />

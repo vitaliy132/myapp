@@ -48,7 +48,7 @@ const BitcoinYearlyChart = () => {
   }, []); // Commenting out the useEffect hook for the API call
 
   return (
-    <div style={{ width: "100%", height: "300px" }}>
+    <div style={{ width: "100%", height: "100%" }}>
       <h5>Bitcoin Yearly Chart</h5>
       {error ? (
         <p className="text-danger">{error}</p>

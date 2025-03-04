@@ -37,11 +37,3 @@
   box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.15), -8px -8px 20px rgba(255, 255, 255, 0.8);
   transform: scale(1.02);
 }
-.dashboard-container .content .col {
-  width: 100%;
-}
-
-.dashboard-container .content .dashboard-card {
-  width: 100%;
-  padding: 1.5rem; /* You can adjust the padding here */
-}
