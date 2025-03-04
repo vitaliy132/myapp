@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
   LineChart,
   Line,
@@ -10,34 +9,42 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const API_URL = "https://bitcoin-backend-pps2.onrender.com/";
+const mockedData = [
+  { date: "2015", price: 320 },
+  { date: "2016", price: 450 },
+  { date: "2017", price: 1000 },
+  { date: "2018", price: 7300 },
+  { date: "2019", price: 12000 },
+  { date: "2020", price: 20000 },
+  { date: "2021", price: 45000 },
+  { date: "2022", price: 35000 },
+  { date: "2023", price: 28000 },
+  { date: "2024", price: 42000 },
+];
 
 const BitcoinYearlyChart = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(mockedData);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let isMounted = true;
-
-    const fetchYearlyData = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/api/bitcoin-yearly`);
-
-        if (response.data.success && isMounted) {
-          setData(response.data.data);
-        }
-      } catch (error) {
-        console.error("Error fetching Bitcoin yearly data:", error);
-        if (isMounted) setError("Failed to fetch Bitcoin data.");
-      }
-    };
-
-    fetchYearlyData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+    // The API fetching section is commented out since we're using mocked data.
+    // let isMounted = true;
+    // const fetchYearlyData = async () => {
+    //   try {
+    //     const response = await axios.get(`${API_URL}/api/bitcoin-yearly`);
+    //     if (response.data.success && isMounted) {
+    //       setData(response.data.data);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching Bitcoin yearly data:", error);
+    //     if (isMounted) setError("Failed to fetch Bitcoin data.");
+    //   }
+    // };
+    // fetchYearlyData();
+    // return () => {
+    //   isMounted = false;
+    // };
+  }, []); // Commenting out the useEffect hook for the API call
 
   return (
     <div>
