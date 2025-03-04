@@ -46,7 +46,7 @@ const App = () => {
             <Col md={6}>
               <DashboardCard>
                 <div className="d-flex flex-column h-100">
-                  <h5 className="mb-3">Latest News</h5>
+                  <h5 className="mb-3">123 Latest News</h5>
                   <News className="flex-grow-1" />
                 </div>
               </DashboardCard>
