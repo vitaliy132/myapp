@@ -32,12 +32,12 @@ const BitcoinYearlyChart = () => {
   }, []);
 
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <div className="chart-container">
       <h5>Bitcoin Yearly Chart</h5>
       {error ? (
         <p className="text-danger">{error}</p>
       ) : (
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" height={300}>
           <LineChart data={data}>
             <XAxis dataKey="date" tick={{ fontSize: 12 }} />
             <YAxis domain={["auto", "auto"]} />
