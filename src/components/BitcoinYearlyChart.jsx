@@ -9,6 +9,7 @@ import {
   CartesianGrid,
 } from "recharts";
 
+// Mocked historical Bitcoin data for demonstration
 const mockedData = [
   { date: "2015", price: 320 },
   { date: "2016", price: 450 },
@@ -28,26 +29,10 @@ const BitcoinYearlyChart = () => {
 
   useEffect(() => {
     // The API fetching section is commented out since we're using mocked data.
-    // let isMounted = true;
-    // const fetchYearlyData = async () => {
-    //   try {
-    //     const response = await axios.get(`${API_URL}/api/bitcoin-yearly`);
-    //     if (response.data.success && isMounted) {
-    //       setData(response.data.data);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching Bitcoin yearly data:", error);
-    //     if (isMounted) setError("Failed to fetch Bitcoin data.");
-    //   }
-    // };
-    // fetchYearlyData();
-    // return () => {
-    //   isMounted = false;
-    // };
-  }, []); // Commenting out the useEffect hook for the API call
+  }, []);
 
   return (
-    <div style={{ width: "100%", height: "300px" }}>
+    <div style={{ width: "100%", height: "100%" }}>
       <h5>Bitcoin Yearly Chart</h5>
       {error ? (
         <p className="text-danger">{error}</p>
