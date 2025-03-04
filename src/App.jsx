@@ -38,7 +38,7 @@ const App = () => {
           <Row className="mt-4">
             <Col md={6}>
               <DashboardCard>
-                <div className="chart-container">
+                <div className="d-flex flex-column h-100">
                   <BitcoinYearlyChart />
                 </div>
               </DashboardCard>
