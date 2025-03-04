@@ -41,3 +41,4 @@ const BitcoinYearlyChart = () => {
     </div>
   );
 };
+export default BitcoinYearlyChart;
