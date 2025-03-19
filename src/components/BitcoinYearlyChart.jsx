@@ -9,7 +9,6 @@ import {
   CartesianGrid,
 } from "recharts";
 
-// Mocked historical Bitcoin data for demonstration
 const mockedData = [
   { date: "2015", price: 320 },
   { date: "2016", price: 450 },

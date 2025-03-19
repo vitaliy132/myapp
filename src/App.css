@@ -48,14 +48,14 @@
 }
 
 .chart-container {
-  height: 300px; /* Set the height of the chart container */
-  width: 100%; /* Ensure the container takes the full width */
+  height: 300px;
+  width: 100%;
 }
 
 .dashboard-container .content .col > .dashboard-card {
-  height: 100%; /* Ensure the card takes the full height */
+  height: 100%;
 }
 
 .dashboard-container .content .d-flex {
-  height: 100%; /* Ensure the flex container is full height */
+  height: 100%;
 }
